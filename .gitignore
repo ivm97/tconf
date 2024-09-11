@@ -1,0 +1,6 @@
+tests
+.idea
+.vscode
+*.zip
+*.7z
+*.txt
