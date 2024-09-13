@@ -15,16 +15,16 @@ func TestNew(t *testing.T) {
 }
 
 func TestRead(t *testing.T) {
-	tc, err := Open("tests/conf.hconf")
+	tc, err := Open("settings.tc")
 	if err != nil {
 		t.Error(err)
 	}
 
-	res, exist := tc.From("section").Get("red")
+	res, exist := tc.From("project").Get("paths")
 	if exist {
 		if v, ok := res.(string); ok {
-			if v != "color" {
-				t.Errorf("Expected red, but got: %s", v)
+			if v != "cmd,libs,pkg" {
+				t.Errorf("Expected cmd,libs,pkg, but got: %s", v)
 			}
 
 		}
@@ -38,5 +38,16 @@ func TestRead(t *testing.T) {
 func TestOpen(t *testing.T) {
 	if _, err := Open("a"); err == nil {
 		t.Errorf("Expected error, but got %v", err)
+	}
+}
+
+func TestFail(t *testing.T) {
+	tc, err := Open("settings.tc")
+	if err != nil {
+		t.Error(err)
+	}
+
+	for k, v := range *tc.From("project") {
+		t.Log("KEY:", k, "VALUE:", v)
 	}
 }

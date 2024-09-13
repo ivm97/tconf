@@ -82,7 +82,7 @@ func analyze(b *[]byte) (*sections, error) {
 		case '\n':
 			if sect.val() == 1 {
 				sect.dec()
-				rbuff = dchar[sectPoint : i-1]
+				rbuff = dchar[sectPoint:i]
 				sectName = strings.ReplaceAll(string(rbuff), " ", "")
 				rbuff = rbuff[:0]
 
@@ -90,7 +90,7 @@ func analyze(b *[]byte) (*sections, error) {
 			kvStart = i + 1
 
 		case '~':
-			rbuff = dchar[kvStart:i]
+			rbuff = dchar[kvStart : i-1]
 			key = strings.ReplaceAll(string(rbuff), " ", "")
 			kvEnd = i + 1
 			rbuff = rbuff[:0]
